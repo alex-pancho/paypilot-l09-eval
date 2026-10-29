@@ -72,3 +72,6 @@
 ```python
 python3 -c "import json;r=[json.loads(l)['additional_metadata'] for l in open('sets/l09_labels.jsonl')];print(len(r),sum('label' in m for m in r),sum(bool(m.get('disputed')) for m in r))"
 ```
+
+### Прогон судді:
+`docker compose run --rm --entrypoint python eval tools/calibrate_run.py l09_labels`
