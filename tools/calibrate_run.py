@@ -35,6 +35,10 @@ def main():
     model = os.environ.get("JUDGE_MODEL", "")
     if not model or model == "not-used":
         sys.exit("JUDGE_MODEL не задано (див. .env)")
+    if not path.exists():
+        sys.exit(f"Немає sets/{name}.jsonl. Це ваш розмічений набір: скопіюйте "
+                 f"sets/{name}.lab.jsonl у sets/{name}.jsonl і поставте label кожному кейсу "
+                 f"(крок 3 лабораторної), тоді запускайте скрипт.")
     cases = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines()
              if l.strip() and not l.startswith("//")]
     cases = [c for c in cases if c["additional_metadata"].get("assertion") == "judge"]
