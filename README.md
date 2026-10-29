@@ -26,8 +26,9 @@
    Перейти у папку репозиторію:
    `cd ~/paypilot/l09`
 3. Перевірити запуск набору: `docker compose run --rm eval --set l09_escalation --dry-run`.
-4. Прогнати набір на справній версії: `docker compose run --rm eval --set l09_escalation --profile clean`.
+4. Прогнати набір на справній версії: `docker compose run --rm eval --set l09_escalation --profile clean --traces`.
 5. Прогнати на зламаній: `docker compose run --rm eval --set l09_escalation  --profile lesson-09 --traces`. 
+6. Калібрування: `docker compose run --rm --entrypoint python eval tools/calibrate_run.py l09_labels`
 
 ## Підготовка
 
@@ -66,3 +67,8 @@
 ## Що здати
 
 Результатом лабораторної є заповнений `judge-trust-statement.md` (шаблон `judge-trust-statement.template.md`): що виміряно, з яким інтервалом, де суддя не працює й що ви з цим робите.
+
+### Перевірка:
+```python
+python3 -c "import json;r=[json.loads(l)['additional_metadata'] for l in open('sets/l09_labels.jsonl')];print(len(r),sum('label' in m for m in r),sum(bool(m.get('disputed')) for m in r))"
+```
